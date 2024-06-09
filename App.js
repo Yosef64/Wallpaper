@@ -1,23 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import Appbar from './components/Appbar/Appbar';
-import { SafeAreaView } from 'react-native';
+import React from "react";
+import { Text, View } from "react-native";
+import { useFonts } from "expo-font";
+// import AppLoading from 'expo-app-loading';
+import Appbar from "./components/Appbar/Appbar";
+import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
 export default function App() {
   return (
-    <SafeAreaView>
-      <View style={styles.container}>
-      <Appbar />
-      <StatusBar style="auto" />
-    </View>
-    </SafeAreaView>
-    
+    <SafeAreaProvider>
+      <SafeAreaView>
+        <View style={{ flex: 1 }}>
+          <Appbar />
+        </View>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-   
-  },
-});

@@ -1,21 +1,22 @@
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { StatusBar, StyleSheet, View, Image, Text } from "react-native";
-// import { useFonts, Nunito_400Regular, Nunito_700Bold } from '@expo-google-fonts/nunito';
+import { useFonts } from "expo-font";
 
 
-export default function App() {
-//   let [fontsLoaded] = useFonts({
-//     Nunito_400Regular,
-//     Nunito_700Bold,
-//   });
-
+export default function Appbar() {
+    const [fontsLoaded] = useFonts({
+        "NunitoSans_7pt-Bold": require("../../assets/fonts/NunitoSans_7pt-Bold.ttf"),
+      });
+      if(!fontsLoaded){
+        return undefined;
+      }
   
 
   return (
     <View style={styles.container}>
       <Ionicons name="menu" size={30} color="white" />
-      <Text style={{fontSize:20, color:"white"}}>Home</Text>
+      <Text style={{fontSize:20, color:"white",fontFamily:"NunitoSans_7pt-Bold"}}>Home</Text>
 
       <Image
         source={require("../../assets/bell.png")}
