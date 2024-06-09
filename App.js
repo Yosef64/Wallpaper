@@ -11,6 +11,11 @@ export default function App() {
         <View style={{ flex: 1 }}>
           <Appbar />
         </View>
+        <View>
+          <Text>
+            third pull request test
+          </Text>
+        </View>
       </SafeAreaView>
     </SafeAreaProvider>
   );
