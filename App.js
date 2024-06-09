@@ -17,6 +17,7 @@ export default function App() {
           <Text>
             third pull request test
           </Text>
+          <Body/>
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
