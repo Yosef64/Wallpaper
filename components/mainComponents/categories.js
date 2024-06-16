@@ -25,6 +25,7 @@ export default function Categories() {
   return (
     <View style={{ paddingHorizontal: 19 }}>
       <View>
+        
         <Text style={{ color: "white" }}>Categories</Text>
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
