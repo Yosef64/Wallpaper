@@ -1,33 +1,33 @@
 import React from "react";
 import { Text, View,StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
-// import AppLoading from 'expo-app-loading';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Appbar from "./components/Appbar/Appbar";
 import { SafeAreaView, SafeAreaProvider } from "react-native-safe-area-context";
-import Body from "./components/mainBody/Body";
+import WelcomeScreen from "./components/WelcomeScreen/WelcomeScreen";
+import Main from "./components/MainScreen/Main";
+
+const Stack = createNativeStackNavigator()
 export default function App() {
   return (
-    <SafeAreaProvider>
-      <SafeAreaView>
-        <View style={styles.container}>
-          <Appbar />
-          <Body/>
-        </View>
-        <View>
-          <Text>
-            third pull request test
-          </Text>
-          <Body/>
-        </View>
-      </SafeAreaView>
-    </SafeAreaProvider>
+    
+  <NavigationContainer>
+    <Stack.Navigator
+    screenOptions={{
+      headerShown:false
+    }}
+    >
+      <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+      <Stack.Screen name="Main" component={Main} />
+    </Stack.Navigator>
+  </NavigationContainer>
+   
   );
 }
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: "rgb(10, 10, 34)",
-   
+    flex:1
   },
 }
 )
