@@ -1,11 +1,11 @@
-import React from 'react'
-import { View,Text } from 'react-native'
+import React from "react";
+import { View, Text } from "react-native";
+import Appbar from "../mainComponents/Appbar";
 
 export default function Body() {
   return (
     <View>
-        <Text>something is missing</Text>
-        <Text>Second pull request test</Text>
+      <Appbar />
     </View>
-  )
+  );
 }
