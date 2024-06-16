@@ -1,90 +1,30 @@
 import React from "react";
-import { View, Text, StyleSheet, ImageBackground } from "react-native";
-import Animated, { withTiming } from "react-native-reanimated";
+import { Text, View, StyleSheet } from "react-native";
 
-const customBounceIn = () => {
-  "worklet";
-  return {
-    animations: {
-      opacity: withTiming(1, { duration: 500 }), // Set custom duration here
-      transform: [
-        {
-          scale: withTiming(1, { duration: 500 }), // Set custom duration here
-        },
-      ],
-    },
-    initialValues: {
-      opacity: 0,
-      transform: [
-        {
-          scale: 0.5,
-        },
-      ],
-    },
-  };
-};
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-const customBounceOut = () => {
-  "worklet";
-  return {
-    animations: {
-      opacity: withTiming(0, { duration: 500 }), // Set custom duration here
-      transform: [
-        {
-          scale: withTiming(0.5, { duration: 500 }), // Set custom duration here
-        },
-      ],
-    },
-    initialValues: {
-      opacity: 1,
-      transform: [
-        {
-          scale: 1,
-        },
-      ],
-    },
-  };
-};
+import WelcomeScreen from "./components/WelcomeScreen/WelcomeScreen";
+import Main from "./components/MainScreen/Main";
 
-const App = () => {
+const Stack = createNativeStackNavigator();
+export default function App() {
   return (
-    <Animated.View
-      style={styles.container}
-      entering={customBounceIn}
-      exiting={customBounceOut}
-    >
-      <ImageBackground
-        source={{ uri: "https://example.com/your-background-image.jpg" }}
-        style={styles.backgroundImage}
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
       >
-        <View style={styles.overlay}>
-          <Text style={styles.text}>Hello, World!</Text>
-        </View>
-      </ImageBackground>
-    </Animated.View>
+        <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
+        <Stack.Screen name="Main" component={Main} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  backgroundImage: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
-  },
-  overlay: {
-    flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  text: {
-    color: "#fff",
-    fontSize: 24,
-    fontWeight: "bold",
-  },
 });
-
-export default App;
