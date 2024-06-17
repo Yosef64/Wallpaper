@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import WelcomeScreen from "./components/WelcomeScreen/WelcomeScreen";
 import Main from "./components/MainScreen/Main";
+import DetailImage from "./components/mainComponents/detailImage";
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
       >
         <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
         <Stack.Screen name="Main" component={Main} />
+        <Stack.Screen name="ImageDetail" component={DetailImage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

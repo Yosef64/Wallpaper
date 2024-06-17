@@ -6,7 +6,7 @@ import Animated, { BounceInUp, BounceOut, withTiming } from "react-native-reanim
 export default function WelcomeScreen({navigation}) {
   useEffect(() =>{
     setTimeout(()=>{
-      navigation.push("Main")
+      navigation.replace("Main")
     }, 2000);
   }
   ,[navigation]);
@@ -34,6 +34,7 @@ export default function WelcomeScreen({navigation}) {
   };
 
   const customBounceOut = () => {
+    "worklet";
     return {
       animations: {
         opacity: withTiming(0, { duration: 500 }), // Set custom duration here
