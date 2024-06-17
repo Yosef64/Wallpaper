@@ -25,13 +25,6 @@
   "devDependencies": {
     "@babel/core": "^7.20.0"
   },
-  "private": true,
-  "expo": {
-    "name": "wallpaper",
-    "slug": "HabeshanWall",
-    "version": "1.0.0",
-    "android": {
-      "package": "com.twoJos.habeshanwall"
-    }
-  }
+  "private": true
+  
 }

@@ -2,8 +2,8 @@ import { MasonryFlashList } from "@shopify/flash-list";
 import React, { useEffect, useState } from "react";
 import { View, Image, StyleSheet, Dimensions } from "react-native";
 import ImageComponent from "./imageComp";
-import { getStorage, ref, listAll } from "firebase/storage";
-
+import { ref, listAll ,getDownloadURL} from "firebase/storage";
+import { storage } from "../../firebaseconfig/firebase";
 const data = [
   { id: 1, img: require("../../assets/img1.jpeg") },
   { id: 2, img: require("../../assets/img2.jpeg") },
@@ -14,22 +14,17 @@ const data = [
   { id: 7, img: require("../../assets/img6.jpeg") },
   { id: 8, img: require("../../assets/img6.jpeg") },
 ];
-const storage = getStorage();
 
-// Create a reference under which you want to list
-const listRef = ref(storage, "files/uid");
 export default function ListImages() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     async function getImageLink() {
-      const storage = getStorage();
-
       const listRef = ref(storage, "people");
       try {
         const result = await listAll(listRef);
         const urls = await Promise.all(
-          result.items.map((itemRef) => itemRef.getDownloadURL())
+          result.items.map((itemRef) => getDownloadURL(itemRef))
         );
         setData(urls);
       } catch (error) {
@@ -50,7 +45,7 @@ export default function ListImages() {
         renderItem={({ item, index }) => (
           <ImageComponent item={item} index={index} />
         )}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item}
         estimatedItemSize={200} // Estimate item size for better performance
         contentContainerStyle={styles.listContent}
         ItemSeparatorComponent={() => <View style={styles.separator} />}

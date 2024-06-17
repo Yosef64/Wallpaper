@@ -12,7 +12,7 @@ export default function ImageComponent({ item, index }) {
       }}
     >
       <Image
-        source={item.img}
+        source={require(item)}
         style={{
           height: curRatio == 1 ? 230 : curRatio == 2 ? 260 : 280,
           ...styles.image,
