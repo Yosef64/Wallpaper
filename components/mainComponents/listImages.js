@@ -2,8 +2,8 @@ import { MasonryFlashList } from "@shopify/flash-list";
 import React, { useEffect, useState } from "react";
 import { View, Image, StyleSheet, Dimensions } from "react-native";
 import ImageComponent from "./imageComp";
-import { ref, listAll ,getDownloadURL} from "firebase/storage";
-import { storage } from "../../firebaseconfig/firebase";
+import { ref, listAll, getDownloadURL } from "firebase/storage";
+
 const data = [
   { id: 1, img: require("../../assets/img1.jpeg") },
   { id: 2, img: require("../../assets/img2.jpeg") },
@@ -15,32 +15,14 @@ const data = [
   { id: 8, img: require("../../assets/img6.jpeg") },
 ];
 
-export default function ListImages() {
-  const [data, setData] = useState([]);
+export default function ListImages({listImage}) {
+  
 
-  useEffect(() => {
-    async function getImageLink() {
-      const listRef = ref(storage, "people");
-      try {
-        const result = await listAll(listRef);
-        const urls = await Promise.all(
-          result.items.map((itemRef) => getDownloadURL(itemRef))
-        );
-        setData(urls);
-      } catch (error) {
-        console.error(
-          "Error fetching image URLs from Firebase Storage: ",
-          error
-        );
-      }
-    }
-
-    getImageLink();
-  }, []);
+ 
   return (
     <View style={styles.container}>
       <MasonryFlashList
-        data={data}
+        data={listImage}
         numColumns={2} // Set the number of columns
         renderItem={({ item, index }) => (
           <ImageComponent item={item} index={index} />

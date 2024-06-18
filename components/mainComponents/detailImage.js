@@ -16,7 +16,7 @@ export default function DetailImage({ route, navigation }) {
   return (
     <View style={styles.container}>
       <StatusBar hidden={true} />
-      <ImageBackground source={item.img} style={styles.backgroundImage}>
+      <ImageBackground source={{uri:item}} style={styles.backgroundImage}>
         <View style={styles.left_arrow_container}>
           <Image
             source={require("../../assets/left_arrow1.png")}
