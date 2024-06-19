@@ -1,15 +1,33 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Image, StyleSheet, ImageBackground } from "react-native";
-import Animated, { BounceInUp, BounceOut, withTiming } from "react-native-reanimated";
+import Animated, {
+  BounceInUp,
+  BounceOut,
+  withTiming,
+} from "react-native-reanimated";
+import { db } from "../../firebaseconfig/firebase";
+import { getDoc, collection,doc } from "firebase/firestore";
+export default function WelcomeScreen({ navigation }) {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    async function getData() {
+      try {
+        
+        const docRef = doc(db, "images","all");
+        const docSnap = await getDoc(docRef);
+        const data = docSnap.data()
 
-export default function WelcomeScreen({navigation}) {
-  useEffect(() =>{
-    setTimeout(()=>{
-      navigation.replace("Main")
-    }, 2000);
-  }
-  ,[navigation]);
+        navigation.replace("Main", { data });
+      } catch (error) {
+        console.error(
+          "Error fetching image URLs from Firebase Storage: ",
+          error
+        );
+      }
+    }
+    getData();
+  }, [navigation]);
 
   const customBounceIn = () => {
     "worklet";
@@ -84,7 +102,7 @@ export default function WelcomeScreen({navigation}) {
         </Animated.View>
       </View>
 
-      <StatusBar  style="light"/>
+      <StatusBar style="light" />
     </ImageBackground>
   );
 }
