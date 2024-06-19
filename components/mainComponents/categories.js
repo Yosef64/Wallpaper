@@ -8,15 +8,16 @@ import {
 } from "react-native";
 
 export default function Categories({ cur, setCur }) {
-  const [active, setActive] = useState(1);
+  console.log(cur);
   const listOfCategories = [
     { id: 0, title: "All" },
-    { id: 1, title: "Most Liked" },
+
     { id: 2, title: "Place" },
     { id: 3, title: "People" },
     { id: 4, title: "Illustrator" },
     { id: 5, title: "Orthodox" },
     { id: 6, title: "Muslim" },
+    { id: 7, title: "Most Liked" },
   ];
 
   function hanldePress(id) {
@@ -40,7 +41,11 @@ export default function Categories({ cur, setCur }) {
                   : styles.category
               }
             >
-              <Text style={{ color: cur == item.title.toLowerCase() ? "black" : "white" }}>
+              <Text
+                style={{
+                  color: cur == item.title.toLowerCase() ? "black" : "white",
+                }}
+              >
                 {item.title}
               </Text>
             </View>
@@ -57,7 +62,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 50,
 
-    borderRadius: 10,
+    borderRadius: 7,
     margin: 5,
     justifyContent: "center",
     alignItems: "center",

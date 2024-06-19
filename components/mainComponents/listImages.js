@@ -4,21 +4,10 @@ import { View, Image, StyleSheet, Dimensions } from "react-native";
 import ImageComponent from "./imageComp";
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 
-const data = [
-  { id: 1, img: require("../../assets/img1.jpeg") },
-  { id: 2, img: require("../../assets/img2.jpeg") },
-  { id: 3, img: require("../../assets/img3.jpeg") },
-  { id: 4, img: require("../../assets/img4.jpeg") },
-  { id: 5, img: require("../../assets/img5.jpeg") },
-  { id: 6, img: require("../../assets/img6.jpeg") },
-  { id: 7, img: require("../../assets/img6.jpeg") },
-  { id: 8, img: require("../../assets/img6.jpeg") },
-];
 
-export default function ListImages({listImage}) {
-  
-
+export default function ListImages({ listImage }) {
  
+
   return (
     <View style={styles.container}>
       <MasonryFlashList
