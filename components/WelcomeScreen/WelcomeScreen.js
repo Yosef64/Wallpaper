@@ -85,7 +85,7 @@ export default function WelcomeScreen({ navigation }) {
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
           <Image
-            source={require("../../assets/splash_logo.png")}
+            source={require("../../assets/finallogo.png")}
             style={styles.image1}
           />
         </Animated.View>
