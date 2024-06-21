@@ -9,7 +9,7 @@ import Animated, {
 import { db } from "../../firebaseconfig/firebase";
 import { getDoc, collection,doc } from "firebase/firestore";
 export default function WelcomeScreen({ navigation }) {
-  const [data, setData] = useState([]);
+
   useEffect(() => {
     async function getData() {
       try {
