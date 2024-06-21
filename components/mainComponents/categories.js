@@ -1,3 +1,4 @@
+import { useFonts } from "expo-font";
 import React, { useState } from "react";
 import {
   TouchableOpacity,
@@ -8,6 +9,13 @@ import {
 } from "react-native";
 
 export default function Categories({ cur, setCur }) {
+  const [fontsLoaded] = useFonts({
+    "Montserrat-Bold": require("../../assets/fonts/Montserrat-Bold.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return <View />;
+  }
   const listOfCategories = [
     { id: 0, title: "All" },
 
@@ -43,6 +51,7 @@ export default function Categories({ cur, setCur }) {
               <Text
                 style={{
                   color: cur == item.title.toLowerCase() ? "black" : "white",
+                  fontFamily: "Montserrat-Bold",
                 }}
               >
                 {item.title}

@@ -1,6 +1,6 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { initializeApp } from "firebase/app";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { getFirestore, initializeFirestore } from "firebase/firestore";
 const firebaseConfig = {
   apiKey: "AIzaSyDPLo5gLFNUZTuefPhezjIo2x2HqQogLvk",
   authDomain: "habeshanwall-4dceb.firebaseapp.com",
@@ -8,11 +8,14 @@ const firebaseConfig = {
   storageBucket: "habeshanwall-4dceb.appspot.com",
   messagingSenderId: "720802392220",
   appId: "1:720802392220:web:626ef2b2818851ff4be559",
-  measurementId: "G-W2898D1T2F"
+  measurementId: "G-W2898D1T2F",
 };
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app)
-const auth = getAuth()
-const provider = new GoogleAuthProvider()
-export {db,auth,provider};
+const db = initializeFirestore(app, {
+  experimentalForceLongPolling: true,
+  useFetchStreams: false,
+});
+// const auth = getAuth()
+// const provider = new GoogleAuthProvider()
+export { db };

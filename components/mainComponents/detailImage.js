@@ -7,11 +7,11 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
-import { BlurView } from "expo-blur";
+
 import { FontAwesome5 } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 
-export default function DetailImage({ route, navigation }) {
+export default function DetailImage({ route }) {
   const { item } = route.params;
   return (
     <View style={styles.container}>
