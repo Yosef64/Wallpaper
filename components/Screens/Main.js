@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import Appbar from "../mainComponents/Appbar";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 import Categories from "../mainComponents/categories";
 import ListImages from "../mainComponents/listImages";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../firebaseconfig/firebase";
+import { getFire } from "../WelcomeScreen/splash";
 // import ListImages from "../mainComponents/listImages";
 function merginList(lists) {
   const result = [];
@@ -30,17 +33,19 @@ function merginList(lists) {
 }
 
 export default function Main({ route, navigation }) {
-  let { data } = route.params;
-  data = {
-    ...data,
-    all: merginList([
-      data["place"],
-      data["people"],
-      data["orthodox"],
-      data["muslim"],
-      data["illustrator"],
-    ]),
-  };
+  let [data, setData] = useState([]);
+  const [isLoad, setLoad] = useState(false);
+ 
+  useEffect(() => {
+    async function fetchData() {
+      
+        const list = await getFire();
+        setData(list) 
+      }
+    fetchData();
+  }, []);
+
+
   const [cur, setCur] = useState("all");
   return (
     <SafeAreaView style={styles.container}>

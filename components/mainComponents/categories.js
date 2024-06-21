@@ -8,7 +8,7 @@ import {
 } from "react-native";
 
 export default function Categories({ cur, setCur }) {
-  console.log(cur);
+  
   const listOfCategories = [
     { id: 0, title: "All" },
 

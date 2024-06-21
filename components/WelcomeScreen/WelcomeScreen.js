@@ -7,26 +7,16 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { db } from "../../firebaseconfig/firebase";
-import { getDoc, collection,doc } from "firebase/firestore";
-export default function WelcomeScreen({ navigation }) {
+import { getDoc, collection, doc } from "firebase/firestore";
+import { getFire } from "./splash";
+import { useNavigation } from "@react-navigation/native";
 
+export default function WelcomeScreen({navigation}) {
+  
   useEffect(() => {
-    async function getData() {
-      try {
-        
-        const docRef = doc(db, "images","all");
-        const docSnap = await getDoc(docRef);
-        const data = docSnap.data()
-
-        navigation.replace("Main", { data });
-      } catch (error) {
-        console.error(
-          "Error fetching image URLs from Firebase Storage: ",
-          error
-        );
-      }
-    }
-    getData();
+    setTimeout(() => {
+      navigation.replace("Main");
+    }, 3000);
   }, [navigation]);
 
   const customBounceIn = () => {
