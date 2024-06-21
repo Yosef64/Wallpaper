@@ -10,7 +10,14 @@ import {
 
 export default function Categories({ cur, setCur }) {
   const [fontsLoaded] = useFonts({
-    "Montserrat-Bold": require("../../assets/fonts/Montserrat-Bold.ttf"),
+    "Montserrat-SemiBold":require("../../assets/fonts/Montserrat/static/Montserrat-SemiBold.ttf"),
+    "Montserrat-BoldItalic":require("../../assets/fonts/Montserrat/static/Montserrat-BoldItalic.ttf"),
+    "Montserrat-Bold":require("../../assets/fonts/Montserrat/static/Montserrat-Bold.ttf"),
+    "YsabeauInfant-ExtraBold":require("../../assets/fonts/Ysabeau_Infant/static/YsabeauInfant-ExtraBold.ttf"),
+    "YsabeauInfant-Bold":require("../../assets/fonts/Ysabeau_Infant/static/YsabeauInfant-Bold.ttf"),
+    "Poppins-Regular":require("../../assets/fonts/Poppins/Poppins-Regular.ttf"),
+    "Poppins-Bold":require("../../assets/fonts/Poppins/Poppins-Bold.ttf"),
+
   });
 
   if (!fontsLoaded) {
@@ -33,7 +40,7 @@ export default function Categories({ cur, setCur }) {
   return (
     <View style={{ paddingHorizontal: 19 }}>
       <View>
-        <Text style={{ color: "white" }}>Categories</Text>
+        <Text style={{ color: "white",fontFamily:"YsabeauInfant-ExtraBold" ,fontSize:22}}>Categories</Text>
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {listOfCategories.map((item) => (
@@ -44,14 +51,14 @@ export default function Categories({ cur, setCur }) {
             <View
               style={
                 cur == item.title.toLowerCase()
-                  ? { ...styles.category, ...styles.activeCategory }
+                  ?  [styles.category, styles.activeCategory ]
                   : styles.category
               }
             >
               <Text
                 style={{
                   color: cur == item.title.toLowerCase() ? "black" : "white",
-                  fontFamily: "Montserrat-Bold",
+                  fontFamily: "YsabeauInfant-Bold",fontSize:15
                 }}
               >
                 {item.title}

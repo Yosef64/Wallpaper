@@ -5,7 +5,7 @@ import {
   createDrawerNavigator,
   DrawerItemList,
 } from "@react-navigation/drawer";
-import { Image, SafeAreaView, View, Text } from "react-native";
+import { Image, SafeAreaView, View, Text, StyleSheet } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import * as SplashScreen from "expo-splash-screen";
 import Contactus from "./screens/Contactus";
@@ -17,6 +17,7 @@ import { db } from "./firebaseconfig/firebase";
 import DetailImage from "./components/mainComponents/detailImage";
 import WelcomeScreen from "./components/WelcomeScreen/WelcomeScreen";
 import ListImages from "./components/mainComponents/listImages";
+import { useFonts } from "expo-font";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -40,7 +41,13 @@ function MainStackNavigator({ route }) {
 export default function App() {
   // const navigation = useNavigation();
   const [data, setData] = useState(null);
-
+  const [fontsLoaded] = useFonts({
+    "YsabeauInfant-ExtraBold": require("./assets/fonts/Ysabeau_Infant/static/YsabeauInfant-ExtraBold.ttf"),
+    "YsabeauInfant-Bold": require("./assets/fonts/Ysabeau_Infant/static/YsabeauInfant-Bold.ttf"),
+  });
+  if (!fontsLoaded) {
+    return null;
+  }
   return (
     <View style={{ flex: 1 }}>
       <NavigationContainer>
@@ -75,12 +82,11 @@ export default function App() {
             },
             headerShown: false,
             headerTintColor: "white",
-            drawerActiveTintColor: "blue",
+            drawerActiveTintColor: "white",
+
             drawerLabelStyle: {
               color: "white",
-            },
-            drawerIconStyle: {
-              margin: 0,
+              fontFamily: "YsabeauInfant-Bold",
             },
           }}
         >
@@ -91,18 +97,39 @@ export default function App() {
               drawerLabel: "Home",
               title: "Home",
               drawerIcon: () => (
-                <MaterialIcons name="home" color="white" size={30} />
+                <Image
+                  source={require("./assets/home.png")}
+                  style={styles.homeIcon}
+                />
               ),
             }}
           />
+
           <Drawer.Screen
             name="About"
             component={About}
             options={{
-              drawerLabel: "Login",
+              drawerLabel: "About Us",
               title: "Login",
               drawerIcon: () => (
-                <MaterialIcons name="login" color="white" size={30} />
+                <Image
+                  source={require("./assets/info.png")}
+                  style={styles.homeIcon}
+                />
+              ),
+            }}
+          />
+          <Drawer.Screen
+            name="Favourite"
+            component={About}
+            options={{
+              drawerLabel: "Favourite",
+              title: "Login",
+              drawerIcon: () => (
+                <Image
+                  source={require("./assets/bookmark.png")}
+                  style={styles.homeIcon}
+                />
               ),
             }}
           />
@@ -113,7 +140,38 @@ export default function App() {
               drawerLabel: "Contact Us",
               title: "Contact Us",
               drawerIcon: () => (
-                <MaterialIcons name="inbox" color="white" size={30} />
+                <Image
+                  source={require("./assets/email.png")}
+                  style={styles.email}
+                />
+              ),
+            }}
+          />
+          <Drawer.Screen
+            name="Rate Us"
+            component={About}
+            options={{
+              drawerLabel: "Rate Us",
+              title: "Login",
+              drawerIcon: () => (
+                <Image
+                  source={require("./assets/star.png")}
+                  style={styles.star}
+                />
+              ),
+            }}
+          />
+          <Drawer.Screen
+            name="Login "
+            component={About}
+            options={{
+              drawerLabel: "Login",
+              title: "Login",
+              drawerIcon: () => (
+                <Image
+                  source={require("./assets/login.png")}
+                  style={styles.email}
+                />
               ),
             }}
           />
@@ -122,3 +180,20 @@ export default function App() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  homeIcon: {
+    width: 27,
+    height: 27,
+    tintColor: "white",
+  },
+  star: {
+    width: 30,
+    height: 30,
+  },
+  email: {
+    width: 30,
+    height: 30,
+    tintColor: "white",
+  },
+});
