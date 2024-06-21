@@ -16,6 +16,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "./firebaseconfig/firebase";
 import DetailImage from "./components/mainComponents/detailImage";
 import WelcomeScreen from "./components/WelcomeScreen/WelcomeScreen";
+import ListImages from "./components/mainComponents/listImages";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -23,15 +24,13 @@ const Drawer = createDrawerNavigator();
 function MainStackNavigator({ route }) {
   return (
     <Stack.Navigator
-    
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Welcome" component={WelcomeScreen} />
       <Stack.Screen name="Main" component={Main} />
-
-      <Stack.Screen name="ImageDetail" component={DetailImage} />
+      <Stack.Screen name="DetailImage" component={DetailImage} />
+      <Stack.Screen name="ListImage" component={ListImages} />
     </Stack.Navigator>
   );
 }
@@ -41,35 +40,6 @@ function MainStackNavigator({ route }) {
 export default function App() {
   // const navigation = useNavigation();
   const [data, setData] = useState(null);
-  // const [appIsReady, setAppIsReady] = useState(false);
-
-  // useEffect(() => {
-  //   async function prepare() {
-  //     try {
-  //       await new Promise((resolve) => setTimeout(resolve, 2000));
-  //     } catch (e) {
-  //       console.warn(e);
-  //     } finally {
-  //       setAppIsReady(true);
-  //     }
-  //   }
-
-  //   prepare();
-  // }, []);
-
-  // const onLayoutRootView = useCallback(async () => {
-  //   if (appIsReady) {
-  //     await SplashScreen.hideAsync();
-  //   }
-  // }, [appIsReady]);
-
-  // if (!appIsReady) {
-  //   return (
-  //     <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
-  //       <Text>loading</Text>
-  //     </View>
-  //   );
-  // }
 
   return (
     <View style={{ flex: 1 }}>
@@ -114,10 +84,9 @@ export default function App() {
             },
           }}
         >
-
           <Drawer.Screen
             name="Home"
-            component={Main}
+            component={MainStackNavigator}
             options={{
               drawerLabel: "Home",
               title: "Home",

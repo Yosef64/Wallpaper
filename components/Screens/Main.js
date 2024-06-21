@@ -38,13 +38,18 @@ export default function Main({ route, navigation }) {
  
   useEffect(() => {
     async function fetchData() {
-      
-        const list = await getFire();
-        setData(list) 
-      }
+      const list = await getFire();
+      setData({
+        ...list,
+        all: merginList(
+          [list["people"], list["illustrator"], list["muslim"]],
+          list["orthodox"],
+          list["place"]
+        ),
+      });
+    }
     fetchData();
   }, []);
-
 
   const [cur, setCur] = useState("all");
   return (
@@ -57,7 +62,7 @@ export default function Main({ route, navigation }) {
         </View> */}
 
         <Categories cur={cur} setCur={setCur} />
-        <ListImages listImage={data[cur]} />
+        <ListImages listImage={data[cur]} navigation={navigation} />
       </View>
     </SafeAreaView>
   );

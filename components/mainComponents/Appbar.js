@@ -42,6 +42,9 @@ export default function Appbar() {
   };
   return (
     <View style={styles.container}>
+      <TouchableOpacity onPress={openDrawer}>
+        <Ionicons name="menu" size={30} color="white" />
+      </TouchableOpacity>
       <Text
         style={{
           fontSize: 25,
@@ -51,9 +54,6 @@ export default function Appbar() {
       >
         H.Wallpaper
       </Text>
-      <TouchableOpacity onPress={openDrawer}>
-        <Ionicons name="menu" size={30} color="white" />
-      </TouchableOpacity>
     </View>
   );
 }
