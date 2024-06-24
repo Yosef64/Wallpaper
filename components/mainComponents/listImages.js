@@ -24,7 +24,7 @@ export default function ListImages({ navigation, listImage }) {
           return (
             <TouchableOpacity onPress={() => handlePress(item)}>
               <Image
-                source={{ uri: item }}
+                source={{ uri: item.photo }}
                 style={{
                   height: curRatio == 1 ? 230 : curRatio == 2 ? 260 : 280,
                   ...styles.image,
@@ -33,7 +33,7 @@ export default function ListImages({ navigation, listImage }) {
             </TouchableOpacity>
           );
         }}
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => item.photo}
         estimatedItemSize={200} // Estimate item size for better performance
         contentContainerStyle={styles.listContent}
         ItemSeparatorComponent={() => <View style={styles.separator} />}

@@ -18,6 +18,8 @@ import DetailImage from "./components/mainComponents/detailImage";
 import WelcomeScreen from "./components/WelcomeScreen/WelcomeScreen";
 import ListImages from "./components/mainComponents/listImages";
 import { useFonts } from "expo-font";
+import Favourite from "./screens/favourite";
+import Rateus from "./screens/rateus";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -111,7 +113,8 @@ export default function App() {
             component={About}
             options={{
               drawerLabel: "About Us",
-              title: "Login",
+              title: "About Us",
+              backgroundColor:"blue",
               drawerIcon: () => (
                 <Image
                   source={require("./assets/info.png")}
@@ -151,10 +154,10 @@ export default function App() {
           <Drawer.Screen
           
             name="Rate Us"
-            component={About}
+            component={Rateus}
             options={{
               drawerLabel: "Rate Us",
-              title: "Login",
+              title: "Rate Us",
               drawerIcon: () => (
                 <Image
                   source={require("./assets/star.png")}
@@ -164,7 +167,7 @@ export default function App() {
             }}
           />
           <Drawer.Screen
-            name="Login "
+            name="Login"
             component={About}
             options={{
               drawerLabel: "Login",
