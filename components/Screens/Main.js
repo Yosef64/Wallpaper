@@ -33,9 +33,8 @@ function merginList(lists) {
 }
 
 export default function Main({ route, navigation }) {
-  let [data, setData] = useState([]);
-  const [isLoad, setLoad] = useState(false);
- 
+  const [data, setData] = useState([]);
+  
   useEffect(() => {
     async function fetchData() {
       const list = await getFire();

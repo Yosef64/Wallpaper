@@ -39,7 +39,7 @@ export default function Categories({ cur, setCur }) {
   }
   return (
     <View style={{ paddingHorizontal: 19 }}>
-      <View>
+      <View style={{marginVertical:5}}>
         <Text style={{ color: "white",fontFamily:"YsabeauInfant-ExtraBold" ,fontSize:22}}>Categories</Text>
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>

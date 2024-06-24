@@ -21,7 +21,6 @@ export default function ListImages({ navigation, listImage }) {
         numColumns={2} // Set the number of columns
         renderItem={({ item, index }) => {
           const curRatio = index % 3;
-          // const navigation = useNavigation();
           return (
             <TouchableOpacity onPress={() => handlePress(item)}>
               <Image
