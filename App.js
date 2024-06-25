@@ -164,7 +164,7 @@ export default function App() {
             }}
           />
           <Drawer.Screen
-            name="Login "
+            name="Login"
             component={About}
             options={{
               drawerLabel: "Login",
