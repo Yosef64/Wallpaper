@@ -1,4 +1,4 @@
-import React ,{useEffect} from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   ImageBackground,
@@ -6,7 +6,9 @@ import {
   StyleSheet,
   Image,
   Pressable,
+  Text,
 } from "react-native";
+import { useFonts } from "expo-font";
 import * as FileSystem from "expo-file-system";
 import * as MediaLibrary from "expo-media-library";
 import uuid from "react-native-uuid";
@@ -14,13 +16,39 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { shareAsync } from "expo-sharing";
 import { Button, Snackbar } from "@react-native-material/core";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 import { loginAuth } from "../../firebaseconfig/login";
 import * as Google from "expo-auth-session/providers/google";
-
+import { Modal } from "react-native";
+const CustomAlert = ({ isVisible, onClose, message }) => {
+  return (
+    <Modal isVisible={isVisible}>
+      <View style={styles.alertContainer}>
+        <Text style={styles.alertText}>{message}</Text>
+        <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+          <Text style={styles.closeButtonText}>Close</Text>
+        </TouchableOpacity>
+      </View>
+    </Modal>
+  );
+};
 export default function DetailImage({ route, navigation }) {
   const { item } = route.params;
+  const [isAlertVisible, setAlertVisible] = useState(false);
 
+  const closeAlert = () => {
+    setAlertVisible(false);
+  };
+  const [fontsLoaded] = useFonts({
+    // "Montserrat-SemiBold":require("../../assets/fonts/Montserrat/static/Montserrat-SemiBold.ttf"),
+    // "Montserrat-BoldItalic":require("../../assets/fonts/Montserrat/static/Montserrat-BoldItalic.ttf"),
+    // "Montserrat-Bold":require("../../assets/fonts/Montserrat/static/Montserrat-Bold.ttf"),
+    "YsabeauInfant-ExtraBold": require("../../assets/fonts/Ysabeau_Infant/static/YsabeauInfant-ExtraBold.ttf"),
+    "YsabeauInfant-Bold": require("../../assets/fonts/Ysabeau_Infant/static/YsabeauInfant-Bold.ttf"),
+    // "Poppins-Regular":require("../../assets/fonts/Poppins/Poppins-Regular.ttf"),
+    // "Poppins-Bold":require("../../assets/fonts/Poppins/Poppins-Bold.ttf"),
+  });
+  const [downloading, setDownloading] = useState(false);
   const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
     clientId:
       "800465345826-h4c0i8h0a2memukipk297oik9vd17i16.apps.googleusercontent.com.googleusercontent.com",
@@ -30,17 +58,20 @@ export default function DetailImage({ route, navigation }) {
   useEffect(() => {
     if (response?.type === "success") {
       const { id_token } = response.params;
-      
+
       console.log(id_token);
     }
   }, [response]);
   async function handleImage(uri) {
     try {
+      setDownloading(true);
+
       const { status } = await MediaLibrary.requestPermissionsAsync();
       if (status !== "granted") {
         alert("Permission to access media library is required!");
         return;
       }
+
       const result = await FileSystem.downloadAsync(
         uri,
         FileSystem.documentDirectory + fileName
@@ -48,11 +79,13 @@ export default function DetailImage({ route, navigation }) {
 
       const asset = await MediaLibrary.createAssetAsync(result.uri);
       await MediaLibrary.createAlbumAsync("Pictures", asset, false);
-      console.log("Image saved to gallery");
+      setDownloading(false);
 
       await shareAsync(result.uri);
     } catch (error) {
-      alert("the user didn't not give permissions");
+      // alert("the user didn't not give permissions");
+      setDownloading(false);
+      setAlertVisible(true);
     }
   }
   function handleLogin() {
@@ -62,9 +95,17 @@ export default function DetailImage({ route, navigation }) {
     <View style={styles.container}>
       <StatusBar hidden={true} />
       <ImageBackground
-        source={{ uri: item.photo }}
+        source={{ uri: item.image }}
         style={styles.backgroundImage}
       >
+        <Modal transparent={true} visible={isAlertVisible}>
+          <View style={styles.alertContainer}>
+            <Text style={styles.alertText}>Something went wrong</Text>
+            <TouchableOpacity onPress={closeAlert} style={styles.closeButton}>
+              <Text style={styles.closeButtonText}>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </Modal>
         <View style={styles.left_arrow_container}>
           <Pressable onPress={() => navigation.goBack()}>
             <Image
@@ -74,7 +115,7 @@ export default function DetailImage({ route, navigation }) {
           </Pressable>
         </View>
         <View style={styles.bottom}>
-          <Pressable onPress={() => handleImage(item.photo)}>
+          <Pressable onPress={() => handleImage(item.image)}>
             <View style={{ ...styles.left_arrow_container, marginLeft: 0 }}>
               <Image
                 style={styles.left_arrow}
@@ -88,12 +129,20 @@ export default function DetailImage({ route, navigation }) {
             </TouchableOpacity>
           </View>
         </View>
-        {/* <Snackbar
-          message="Hello there how are you doing"
-          action={
-            <Button variant="text" title="Dismiss" color="#BB86FC" compact />
-          }
-        /> */}
+        {downloading && (
+          <View style={styles.snackbar}>
+            <View style={styles.snackbarChild}>
+              <Text
+                style={{
+                  color: "white",
+                  fontFamily: "YsabeauInfant-ExtraBold",
+                }}
+              >
+                Downloading...
+              </Text>
+            </View>
+          </View>
+        )}
       </ImageBackground>
     </View>
   );
@@ -128,5 +177,57 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     paddingHorizontal: 50,
+  },
+  snackbar: {
+    position: "absolute",
+    bottom: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    width: Dimensions.get("window").width - 10,
+    height: 50,
+    borderRadius: 10,
+  },
+  snackbarChild: {
+    width: "50%",
+    height: "100%",
+    backgroundColor: "#121212",
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  showAlertButton: {
+    padding: 10,
+    backgroundColor: "#007BFF",
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+  },
+
+  alertContainer: {
+    // flex:1,
+    margin: "auto",
+    padding: 20,
+    backgroundColor: "#272042",
+    borderRadius: 10,
+    // color:"white",
+    alignItems: "center",
+    justifyContent: "space-between",
+    height: 100,
+  },
+  alertText: {
+    fontSize: 18,
+    marginBottom: 10,
+    color:"white"
+  },
+  closeButton: {
+    padding: 10,
+    backgroundColor: "#FF0000",
+    borderRadius: 5,
+  },
+  closeButtonText: {
+    color: "#FFFFFF",
+    fontSize: 16,
   },
 });

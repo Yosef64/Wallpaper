@@ -22,7 +22,7 @@ const db = initializeFirestore(app, {
   useFetchStreams: false,
 });
 const auth = initializeAuth(app,{
-  persistence:getReactNativePersistence(AsyncStorage)
+  persistence:getReactNativePersistence(AsyncStorage),
 });
 
 export { db,auth };

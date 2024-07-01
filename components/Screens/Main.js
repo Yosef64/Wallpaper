@@ -9,6 +9,7 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "../../firebaseconfig/firebase";
 import { getFire } from "../WelcomeScreen/splash";
 // import ListImages from "../mainComponents/listImages";
+
 function merginList(lists) {
   const result = [];
   let maxLength = 0;

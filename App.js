@@ -5,7 +5,14 @@ import {
   createDrawerNavigator,
   DrawerItemList,
 } from "@react-navigation/drawer";
-import { Image, SafeAreaView, View, Text, StyleSheet, Modal } from "react-native";
+import {
+  Image,
+  SafeAreaView,
+  View,
+  Text,
+  StyleSheet,
+  Modal,
+} from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import * as SplashScreen from "expo-splash-screen";
 import Contactus from "./screens/Contactus";
@@ -34,7 +41,9 @@ function MainStackNavigator({ route }) {
       <Stack.Screen name="ListImage" component={ListImages} />
     </Stack.Navigator>
   );
+
 }
+
 
 // SplashScreen.preventAutoHideAsync();
 
@@ -90,12 +99,11 @@ export default function App() {
           }}
         >
           <Drawer.Screen
-
             name="Home"
             component={MainStackNavigator}
             options={{
               drawerLabel: "Home",
-              headerShown:false,
+              headerShown: false,
               title: "Home",
               drawerIcon: () => (
                 <Image
@@ -149,7 +157,6 @@ export default function App() {
             }}
           />
           <Drawer.Screen
-          
             name="Rate Us"
             component={About}
             options={{
