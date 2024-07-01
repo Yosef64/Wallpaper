@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "994574727959",
+    "project_id": "wallpaper-3ee8e",
+    "storage_bucket": "wallpaper-3ee8e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:994574727959:android:cbbffccbf4072fd014d552",
+        "android_client_info": {
+          "package_name": "com.wall.habeshan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5O3fl7BMM0ZBOtWVa2CZE6b43bdTbKxw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

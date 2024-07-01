@@ -18,7 +18,7 @@ export default function ListImages({ navigation, listImage }) {
     <View style={styles.container}>
       <MasonryFlashList
         data={listImage}
-        numColumns={2} // Set the number of columns
+        numColumns={2} 
         renderItem={({ item, index }) => {
           const curRatio = index % 3;
           return (

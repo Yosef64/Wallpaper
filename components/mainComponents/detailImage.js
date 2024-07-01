@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useEffect} from "react";
 import {
   View,
   ImageBackground,
@@ -13,43 +13,58 @@ import uuid from "react-native-uuid";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { StatusBar } from "expo-status-bar";
 import { shareAsync } from "expo-sharing";
+import { Button, Snackbar } from "@react-native-material/core";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { loginAuth } from "../../firebaseconfig/login";
+import * as Google from "expo-auth-session/providers/google";
 
 export default function DetailImage({ route, navigation }) {
   const { item } = route.params;
-  const fileName = `${uuid.v4()}.jpg`; // Ensure the file has a .jpg extension
 
+  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+    clientId:
+      "800465345826-h4c0i8h0a2memukipk297oik9vd17i16.apps.googleusercontent.com.googleusercontent.com",
+  });
+
+  const fileName = `${uuid.v4()}.jpg`; // Ensure the file has a .jpg extension
+  useEffect(() => {
+    if (response?.type === "success") {
+      const { id_token } = response.params;
+      
+      console.log(id_token);
+    }
+  }, [response]);
   async function handleImage(uri) {
     try {
-      // Request media library permissions
       const { status } = await MediaLibrary.requestPermissionsAsync();
-      if (status !== 'granted') {
-        alert('Permission to access media library is required!');
+      if (status !== "granted") {
+        alert("Permission to access media library is required!");
         return;
       }
-
-      
       const result = await FileSystem.downloadAsync(
         uri,
         FileSystem.documentDirectory + fileName
       );
-      
 
-    
       const asset = await MediaLibrary.createAssetAsync(result.uri);
-      await MediaLibrary.createAlbumAsync('Pictures', asset, false);
+      await MediaLibrary.createAlbumAsync("Pictures", asset, false);
       console.log("Image saved to gallery");
 
-      
       await shareAsync(result.uri);
     } catch (error) {
-      alert('the use didn\'t not give permissions' )
+      alert("the user didn't not give permissions");
     }
   }
-
+  function handleLogin() {
+    loginAuth();
+  }
   return (
     <View style={styles.container}>
       <StatusBar hidden={true} />
-      <ImageBackground source={{ uri: item }} style={styles.backgroundImage}>
+      <ImageBackground
+        source={{ uri: item.photo }}
+        style={styles.backgroundImage}
+      >
         <View style={styles.left_arrow_container}>
           <Pressable onPress={() => navigation.goBack()}>
             <Image
@@ -59,7 +74,7 @@ export default function DetailImage({ route, navigation }) {
           </Pressable>
         </View>
         <View style={styles.bottom}>
-          <Pressable onPress={() => handleImage(item)}>
+          <Pressable onPress={() => handleImage(item.photo)}>
             <View style={{ ...styles.left_arrow_container, marginLeft: 0 }}>
               <Image
                 style={styles.left_arrow}
@@ -68,9 +83,17 @@ export default function DetailImage({ route, navigation }) {
             </View>
           </Pressable>
           <View style={styles.left_arrow_container}>
-            <FontAwesome5 name="heart" size={35} color="black" />
+            <TouchableOpacity onPress={() => promptAsync()}>
+              <FontAwesome5 name="heart" size={35} color="black" />
+            </TouchableOpacity>
           </View>
         </View>
+        {/* <Snackbar
+          message="Hello there how are you doing"
+          action={
+            <Button variant="text" title="Dismiss" color="#BB86FC" compact />
+          }
+        /> */}
       </ImageBackground>
     </View>
   );

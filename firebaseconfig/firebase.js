@@ -1,6 +1,12 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import {
+  // GoogleAuthProvider,
+  getReactNativePersistence,
+  initializeAuth,
+} from "firebase/auth";
 import { getFirestore, initializeFirestore } from "firebase/firestore";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 const firebaseConfig = {
   apiKey: "AIzaSyApF5jJvwBNrSItl-fmMTVXSfleCdgMm6A",
   authDomain: "wallpaper-3ee8e.firebaseapp.com",
@@ -15,6 +21,8 @@ const db = initializeFirestore(app, {
   experimentalForceLongPolling: true,
   useFetchStreams: false,
 });
-// const auth = getAuth()
-// const provider = new GoogleAuthProvider()
-export { db };
+const auth = initializeAuth(app,{
+  persistence:getReactNativePersistence(AsyncStorage)
+});
+
+export { db,auth };
