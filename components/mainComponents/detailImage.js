@@ -68,7 +68,7 @@ export default function DetailImage({ route, navigation }) {
         <View style={styles.left_arrow_container}>
           <Pressable onPress={() => navigation.goBack()}>
             <Image
-              source={require("../../assets/left_arrow1.png")}
+              
               style={styles.left_arrow}
             />
           </Pressable>
