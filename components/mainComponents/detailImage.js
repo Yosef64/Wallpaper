@@ -95,7 +95,7 @@ export default function DetailImage({ route, navigation }) {
     <View style={styles.container}>
       <StatusBar hidden={true} />
       <ImageBackground
-        source={{ uri: item.image }}
+        source={{ uri: item.photo }}
         style={styles.backgroundImage}
       >
         <Modal transparent={true} visible={isAlertVisible}>
@@ -109,13 +109,13 @@ export default function DetailImage({ route, navigation }) {
         <View style={styles.left_arrow_container}>
           <Pressable onPress={() => navigation.goBack()}>
             <Image
-              source={require("../../assets/left_arrow1.png")}
+              
               style={styles.left_arrow}
             />
           </Pressable>
         </View>
         <View style={styles.bottom}>
-          <Pressable onPress={() => handleImage(item.image)}>
+          <Pressable onPress={() => handleImage(item.photo)}>
             <View style={{ ...styles.left_arrow_container, marginLeft: 0 }}>
               <Image
                 style={styles.left_arrow}

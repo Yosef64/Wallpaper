@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React from "react";
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
@@ -9,22 +9,15 @@ import {
   Image,
   SafeAreaView,
   View,
-  Text,
   StyleSheet,
-  Modal,
 } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
-import * as SplashScreen from "expo-splash-screen";
 import Contactus from "./screens/Contactus";
 import About from "./screens/about";
-import Home from "./screens/Home";
 import Main from "./components/Screens/Main";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "./firebaseconfig/firebase";
 import DetailImage from "./components/mainComponents/detailImage";
-import WelcomeScreen from "./components/WelcomeScreen/WelcomeScreen";
 import ListImages from "./components/mainComponents/listImages";
 import { useFonts } from "expo-font";
+import Rateus from "./screens/rateus";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -48,7 +41,7 @@ function MainStackNavigator({ route }) {
 // SplashScreen.preventAutoHideAsync();
 
 export default function App() {
-  // const navigation = useNavigation();
+  
   const [fontsLoaded] = useFonts({
     "YsabeauInfant-ExtraBold": require("./assets/fonts/Ysabeau_Infant/static/YsabeauInfant-ExtraBold.ttf"),
     "YsabeauInfant-Bold": require("./assets/fonts/Ysabeau_Infant/static/YsabeauInfant-Bold.ttf"),
@@ -119,7 +112,8 @@ export default function App() {
             component={About}
             options={{
               drawerLabel: "About Us",
-              title: "Login",
+              title: "About Us",
+              backgroundColor:"blue",
               drawerIcon: () => (
                 <Image
                   source={require("./assets/info.png")}
@@ -158,10 +152,10 @@ export default function App() {
           />
           <Drawer.Screen
             name="Rate Us"
-            component={About}
+            component={Rateus}
             options={{
               drawerLabel: "Rate Us",
-              title: "Login",
+              title: "Rate Us",
               drawerIcon: () => (
                 <Image
                   source={require("./assets/star.png")}

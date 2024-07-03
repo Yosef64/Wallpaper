@@ -15,7 +15,7 @@
     "slug": "habeshanwall",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/pixelmono.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splashall.jpg",
