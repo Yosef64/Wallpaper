@@ -8,28 +8,6 @@ import {
   FlatList,
 } from "react-native";
 import { MasonryFlashList } from "@shopify/flash-list";
-const data = [
-  {
-    id: 1,
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/habeshanwall-4dceb.appspot.com/o/illustrator%2Fpixelcut-export%20(10).jpeg?alt=media&token=e5c90704-e81f-4b95-b90b-ca1cb6955830",
-  },
-  {
-    id: 2,
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/habeshanwall-4dceb.appspot.com/o/illustrator%2Fpixelcut-export%20(1).jpeg?alt=media&token=9fa11931-a4fb-4df6-94b1-1e5a8e4868f7",
-  },
-  {
-    id: 3,
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/habeshanwall-4dceb.appspot.com/o/illustrator%2Fpixelcut-export%20(11).jpeg?alt=media&token=f3ac4514-3f44-4742-9944-71b804f2353a",
-  },
-  {
-    id: 4,
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/habeshanwall-4dceb.appspot.com/o/illustrator%2Fpixelcut-export%20(12).jpeg?alt=media&token=3329fb46-2d7b-4a2c-be40-081dc100cef7",
-  },
-];
 
 export default function ListImages({ navigation, listImage }) {
   const handlePress = (item) => {

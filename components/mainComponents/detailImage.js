@@ -59,7 +59,7 @@ export default function DetailImage({ route, navigation }) {
     if (response?.type === "success") {
       const { id_token } = response.params;
 
-      console.log(id_token);
+     
     }
   }, [response]);
   async function handleImage(uri) {

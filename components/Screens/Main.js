@@ -15,18 +15,16 @@ import ListImages from "../mainComponents/listImages";
 import LottieView from "lottie-react-native";
 import * as Network from "expo-network";
 import { getFire } from "./fetching";
+
 function merginList(lists) {
   const result = [];
   let maxLength = 0;
-
-  // Calculate the maximum length of all lists
   lists.forEach((list) => {
     if (list.length > maxLength) {
       maxLength = list.length;
     }
   });
 
-  // Interleave elements from each list
   for (let i = 0; i < maxLength; i++) {
     lists.forEach((list) => {
       if (i < list.length) {
@@ -46,7 +44,7 @@ export default function Main({ route, navigation }) {
   useEffect(() => {
     async function fetchData() {
       const list = await getFire();
-      console.log(list);
+
       setData({
         ...list,
         all: merginList(
@@ -65,7 +63,7 @@ export default function Main({ route, navigation }) {
   }, []);
 
   const [cur, setCur] = useState("all");
-  console.log(data[cur]);
+  // console.log(data);
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="light" backgroundColor="#121212" />
@@ -76,7 +74,7 @@ export default function Main({ route, navigation }) {
         </View> */}
 
         <Categories cur={cur} setCur={setCur} />
-        {connection ? (
+        {connection && data ? (
           <ListImages listImage={data[cur]} navigation={navigation} />
         ) : (
           <View

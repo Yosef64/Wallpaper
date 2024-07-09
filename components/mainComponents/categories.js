@@ -25,7 +25,6 @@ export default function Categories({ cur, setCur }) {
   }
   const listOfCategories = [
     { id: 0, title: "All" },
-
     { id: 2, title: "Place" },
     { id: 3, title: "People" },
     { id: 4, title: "Illustrator" },
